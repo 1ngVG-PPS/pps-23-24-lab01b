@@ -14,6 +14,7 @@ We propose the following TDD approach (but you can adapt it):
 3. Do not improve `Logics`/`LogicsImpl` at this point; we will do so later
 4. Verify the system's functionality again
 
+
 ## Step 2: Refactor to improve design
 1. Consider an aspect of `LogicsImpl`'s implementation that can be externalized from `LogicsImpl` (SRP), i.e., inserted into a new class which `LogicsImpl` will be composed of
 2. Build the interface and its implementation of this new class with TDD, i.e.,

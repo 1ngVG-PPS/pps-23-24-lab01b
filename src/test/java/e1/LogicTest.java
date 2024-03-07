@@ -9,14 +9,14 @@ public class LogicTest {
   private Pair<Integer,Integer> pawn;
   private Pair<Integer,Integer> knight;
   private int size;
-  private LogicsImpl logic;
+  private Logics logic;
 
   @BeforeEach
   public void initializeLogic(){
    this.size = 5;
    this.pawn = new Pair<Integer,Integer>(1, 2);
    this.knight= new Pair<Integer,Integer>(0, 0);
-   this.logic = new LogicsImpl(size);
+   this.logic = new LogicsImpl(size, this.pawn, this.knight);
   }
 
   @Test
@@ -46,17 +46,21 @@ public class LogicTest {
 
   @Test
   public void testPawnAndKnightPosAreDifferent(){
-    Pair<Integer, Integer> pawnPos;
-    Pair<Integer, Integer> knightPos;
+
+    boolean diff = false;
     for (int x=0; x<this.size; x++){
       for (int y=0; y<this.size; y++){
-        if(this.logic.hasPawn(x, y))  pawnPos = new Pair<Integer, Integer>(x,y);
-        if(this.logic.hasKnight(x,y))  knightPos = new Pair<Integer, Integer>(x,y);
+        if(this.logic.hasPawn(x, y))  this.pawn = new Pair<Integer, Integer>(x,y);
+        if(this.logic.hasKnight(x,y))  this.knight = new Pair<Integer, Integer>(x,y);
        }
      }
-     boolean diff;
-     if (pawnPos.getX() != knightPos.getX())  diff = true;
-
-  }
+     if (this.pawn != this.knight)  diff = true;
+     assertEquals(true, diff);
+    }
+   @Test
+   public void testKnightHitPawn(){
+    boolean result = logic.hit(1, 2);
+    assertEquals(true, result);
+   }
 
 }
